@@ -28,6 +28,7 @@ def add_item():
     return redirect(url_for('todo_list.index'))
 
 
+@csrf.exempt
 @todo_list.route('/del/<int:id>', methods=['POST'])
 @login_required
 def del_item(id):
