@@ -13,7 +13,7 @@ Vue.component(
                 <label for="password" style="padding-right: 5px; margin-bottom: 0px">
                     <i class="el-icon-lock"></i>
                 </label>
-                <el-input v-model="loginForm.password" placeholder="password"></el-input>
+                <el-input type="password" v-model="loginForm.password" placeholder="password"></el-input>
             </el-form-item>
             <el-form-item>
                 <el-checkbox v-model="loginForm.remember" style="line-height: 0.3">Keep Login</el-checkbox>
