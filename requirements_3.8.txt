@@ -1,0 +1,4 @@
+-r base.txt
+
+Werkzeug==0.16.1
+zope.interface==5.4.0
