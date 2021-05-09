@@ -8,9 +8,11 @@ class Todo(db.Model):
     __tablename__ = 'todo'
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.Text)
+    author_id = db.Column(db.Integer, db.ForeignKey('users.id'))
 
-    def __init__(self, title):
+    def __init__(self, title, uid):
         self.title = title
+        self.author_id = uid
 
     def __repr__(self):
         return '<todo %r>' % self.title
@@ -22,6 +24,11 @@ class User(UserMixin, db.Model):
     email = db.Column(db.String(64), unique=True, index=True)
     username = db.Column(db.String(64), unique=True, index=True)
     password_hash = db.Column(db.String(128))
+
+    # 1 : N
+    # Reverse the relationship by adding the 'author' filed to the `ToDo` Model
+    # This field can be used to access User instead of 'author_id'.
+    todo_items = db.relationship('Todo', backref='author', lazy='dynamic')
 
     # write-only property
     @property
