@@ -1,7 +1,7 @@
 from datetime import datetime
 
 from flask import Blueprint, flash, redirect, request, render_template, url_for
-from flask_login import login_required
+from flask_login import login_required, current_user
 
 from app import csrf
 from app.model import Todo, db
@@ -12,7 +12,7 @@ todo_list = Blueprint('todo_list', __name__)
 @todo_list.route('/', methods=['GET', 'POST'])
 @login_required
 def index():
-    items = Todo.query.all()
+    items = Todo.query.filter(Todo.author_id == current_user.id).all()
     return render_template('todo_list.html', entries=items, current_time=datetime.utcnow())
 
 
@@ -20,7 +20,7 @@ def index():
 @todo_list.route('/add', methods=['POST'])
 @login_required
 def add_item():
-    td = Todo(request.form['title'])
+    td = Todo(request.form['title'], current_user.id)
     db.session.add(td)
     db.session.commit()
 
