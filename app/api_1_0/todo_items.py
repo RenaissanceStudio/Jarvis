@@ -3,7 +3,6 @@ from flask import jsonify
 from app.api_1_0 import api
 from app.model import Todo
 
-
 @api.route('/todo-list', methods=['GET'])
 def get_all_todo():
     """

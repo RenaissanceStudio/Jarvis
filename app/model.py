@@ -1,4 +1,6 @@
 from flask_login import UserMixin
+from flask import current_app
+from itsdangerous import TimedJSONWebSignatureSerializer as Serializer
 from werkzeug.security import generate_password_hash, check_password_hash
 
 from . import db
@@ -28,7 +30,9 @@ class User(UserMixin, db.Model):
     # 1 : N
     # Reverse the relationship by adding the 'author' filed to the `ToDo` Model
     # This field can be used to access User instead of 'author_id'.
-    todo_items = db.relationship('Todo', backref='author', lazy='dynamic')
+
+    # NB: lazy = 'dynamic' may cause performance issue
+    todo_items = db.relationship('Todo', backref='author', lazy = 'dynamic')
 
     # write-only property
     @property
@@ -41,6 +45,15 @@ class User(UserMixin, db.Model):
 
     def verify_password(self, pwd):
         return check_password_hash(self.password_hash, pwd)
+
+    @staticmethod
+    def verify_auth_token(token):
+        s = Serializer(current_app.config['SECRET_KEY'])
+        try:
+            data = s.loads(token)
+        except:
+            return None
+        return User.query.get(data['id'])
 
     def __repr__(self):
         return '<user %r>' % self.username
