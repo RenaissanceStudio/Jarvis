@@ -48,6 +48,9 @@ class User(UserMixin, db.Model):
 
     @staticmethod
     def verify_auth_token(token):
+        """
+        For future API usage
+        """
         s = Serializer(current_app.config['SECRET_KEY'])
         try:
             data = s.loads(token)
