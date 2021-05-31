@@ -11,6 +11,7 @@
 <link rel="stylesheet" href="/static/css/style.css">
 {%- endblock styles %}
 <link rel="icon" href="{{ url_for('static', filename='fav.ico') }}" type="image/x-icon">
+<link rel="stylesheet" href="/static/css/uicons-regular-rounded/css/uicons-regular-rounded.css">
 {% endblock %}
 
 {% block content %}
@@ -23,6 +24,9 @@
         {% endif %}
     </div>
 </nav>
+<div id="page-header" style="display: flex; padding: 0 42px 0 42px; background-color: #db4c3f">
+    <page-header/>
+</div>
 
 <div class="container" style="margin-top: 100px">
     {% block page_content %}{% endblock %}
