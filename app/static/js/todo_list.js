@@ -20,7 +20,7 @@ Vue.component(
         },
         methods: {
             logOut() {
-                let api = '/login/logout';
+                let api = '/auth/logout';
                 location.href = api;
             }
         }
