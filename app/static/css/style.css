@@ -65,3 +65,8 @@
 #register .create-account:hover {
     background: #3076df none;
 }
+
+#page-header .right-menu-tooltip {
+    margin-top: 2px;
+    padding: 5px
+}
